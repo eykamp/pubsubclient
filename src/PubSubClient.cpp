@@ -376,7 +376,7 @@ boolean PubSubClient::publish(const char* topic, const uint8_t* payload, unsigne
     return false;
 }
 
-boolean PubSubClient::publish_P(const char* topic, const uint8_t* payload, unsigned int plength, boolean retained) {
+boolean PubSubClient::publish_P(const char* topic, const char* payload, unsigned int plength, boolean retained) {
     uint8_t llen = 0;
     uint8_t digit;
     unsigned int rc = 0;
@@ -413,7 +413,7 @@ boolean PubSubClient::publish_P(const char* topic, const uint8_t* payload, unsig
     rc += _client->write(buffer,pos);
 
     for (i=0;i<plength;i++) {
-        rc += _client->write((char)pgm_read_byte_near(payload + i));
+        rc += _client->write(pgm_read_byte_near(payload + i));
     }
 
     lastOutActivity = millis();
